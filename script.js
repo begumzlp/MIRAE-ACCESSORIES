@@ -271,7 +271,7 @@ function urunleriYukle(liste = urunListesi, hedefId = "urun-grid") {
         alan.innerHTML += `
     <div class="kart">
         <div class="img-container">
-            <img src="${urun.resim}" alt="${urun.ad}" loading="lazy" decoding="async" crossorigin="anonymous"> 
+            <img src="${urun.resim}" alt="${urun.ad}" loading="lazy" decoding="async" crossorigin="anonymous" referrerpolicy="no-referrer"> 
         </div>
         <div class="kart-bilgi">
             <small class="kat-label">${urun.kategori}</small>
