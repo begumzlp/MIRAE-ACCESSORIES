@@ -229,6 +229,19 @@ const fularlar = [
     { ad: "Opal Dream Fular", kategori: "Fular", fiyat: 930, resim: "https://i.pinimg.com/736x/a5/1d/04/a51d04ec8f4c540a0e944d4eb9a62eeb.jpg", aciklama: "Pastel tonlu modern ve hafif tasarım." },
     { ad: "Diamond Night Fular", kategori: "Fular", fiyat: 1320, resim: "https://i.pinimg.com/1200x/10/32/54/10325485141fd73a6680e2fddd85367f.jpg", aciklama: "Gece stiline uygun parlak detaylı model." }
 ];
+
+// --- TÜM ÜRÜNLERİ BİRLEŞTİR ---
+const urunListesi = [
+    ...kupeler, 
+    ...kolyeler, 
+    ...bileklikler, 
+    ...yuzukler, 
+    ...sahmeranlar, 
+    ...halhallar, 
+    ...gozlukler, 
+    ...fularlar
+];
+
 let favoriler = JSON.parse(localStorage.getItem("mirae_favs")) || [];
 let sepet = [];
 
