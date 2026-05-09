@@ -268,30 +268,29 @@ function urunleriYukle(liste = urunListesi, hedefId = "urun-grid") {
         const btnClass = isFav ? "kart-btn aktif-fav" : "kart-btn";
         const btnText = isFav ? "♥ FAVORİDE" : "♡ FAVORİYE EKLE";
 
-    alan.innerHTML += `
-    <div class="kart">
-        <div class="img-container">
-            <img src="${urun.resim}" 
-                 alt="${urun.ad}" 
-                 loading="lazy" 
-                 decoding="async" 
-                 referrerpolicy="no-referrer"
-                 onerror="this.onerror=null; this.src='https://picsum.photos/400/400?luxury,jewelry&sig=${Math.random()}';">
-        </div>
-        <div class="kart-bilgi">
-            <small class="kat-label">${urun.kategori}</small>
-            <h4 style="color: #fff; margin: 5px 0;">${urun.ad}</h4>
-            
-            <p class="urun-aciklama">${urun.aciklama || "MIRAE Luxury özel tasarımı."}</p>
-            
-            <p class="fiyat" style="color: #d4a5b2;">${urun.fiyat} ₺</p>
-            <div style="display: flex; gap: 5px; flex-direction: column;">
-                <button class="${btnClass}" onclick="favIslem('${urun.ad}')">${btnText}</button>
-                <button class="kart-btn" onclick="urunSec(this, '${urun.ad}')">SEPETE EKLE ✨</button>
+        alan.innerHTML += `
+        <div class="kart">
+            <div class="img-container">
+                <img src="${urun.resim}" 
+                     alt="${urun.ad}" 
+                     loading="lazy" 
+                     decoding="async" 
+                     referrerpolicy="no-referrer"
+                     onerror="this.onerror=null; this.src='https://picsum.photos/400/400?luxury,jewelry&sig=${Math.random()}';">
             </div>
-        </div>
-    </div>`;
-}
+            <div class="kart-bilgi">
+                <small class="kat-label">${urun.kategori}</small>
+                <h4 style="color: #fff; margin: 5px 0;">${urun.ad}</h4>
+                <p class="urun-aciklama">${urun.aciklama || "MIRAE Luxury özel tasarımı."}</p>
+                <p class="fiyat" style="color: #d4a5b2;">${urun.fiyat} ₺</p>
+                <div style="display: flex; gap: 5px; flex-direction: column;">
+                    <button class="${btnClass}" onclick="favIslem('${urun.ad}')">${btnText}</button>
+                    <button class="kart-btn" onclick="urunSec(this, '${urun.ad}')">SEPETE EKLE ✨</button>
+                </div>
+            </div>
+        </div>`;
+    }); 
+} 
 
 function favIslem(urunAdi) {
     const urun = urunListesi.find(u => u.ad === urunAdi);
