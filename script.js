@@ -229,19 +229,6 @@ const fularlar = [
     { ad: "Opal Dream Fular", kategori: "Fular", fiyat: 930, resim: "https://i.pinimg.com/736x/a5/1d/04/a51d04ec8f4c540a0e944d4eb9a62eeb.jpg", aciklama: "Pastel tonlu modern ve hafif tasarım." },
     { ad: "Diamond Night Fular", kategori: "Fular", fiyat: 1320, resim: "https://i.pinimg.com/1200x/10/32/54/10325485141fd73a6680e2fddd85367f.jpg", aciklama: "Gece stiline uygun parlak detaylı model." }
 ];
-
-const urunListesi = [
-    ...kupeler,
-    ...kolyeler,
-    ...bileklikler,
-    ...yuzukler,
-    ...sahmeranlar,
-    ...halhallar,
-    ...gozlukler,
-    ...fularlar,
-    
-];
-
 let favoriler = JSON.parse(localStorage.getItem("mirae_favs")) || [];
 let sepet = [];
 
@@ -289,8 +276,8 @@ function urunleriYukle(liste = urunListesi, hedefId = "urun-grid") {
                 </div>
             </div>
         </div>`;
-    }); 
-} 
+    });
+}
 
 function favIslem(urunAdi) {
     const urun = urunListesi.find(u => u.ad === urunAdi);
@@ -298,7 +285,6 @@ function favIslem(urunAdi) {
 
     if (index === -1) {
         favoriler.push(urun);
-
     } else {
         favoriler.splice(index, 1);
     }
@@ -309,10 +295,10 @@ function favIslem(urunAdi) {
     if (activePage && activePage.id === 'favorites') {
         favorileriGoster();
     } else {
-        const grids = document.querySelectorAll('.urun-grid');
-        grids.forEach(g => {
-            if(g.id === 'urun-grid') urunleriYukle(urunListesi, "urun-grid");
-        });
+        // Hem ana ürün gridini hem de favori gridini güncelle
+        urunleriYukle(urunListesi, "urun-grid");
+        const favGrid = document.getElementById("favori-grid");
+        if(favGrid) favorileriGoster();
     }
 }
 
@@ -321,7 +307,7 @@ function favorileriGoster() {
     if (!favAlan) return;
 
     if (favoriler.length === 0) {
-        favAlan.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:#555; padding:50px;'>Henüz favori ürününüz yok. Işıltıyı keşfetmeye başlayın! ✨</p>";
+        favAlan.innerHTML = "<p style='grid-column: 1/-1; text-align:center; color:#555; padding:50px;'>Henüz favori ürününüz yok. ✨</p>";
         return;
     }
     urunleriYukle(favoriler, "favori-grid");
@@ -332,7 +318,6 @@ function urunSec(btn, urunAdi) {
     if (!urun) return;
 
     sepet.push(urun);
-    
     document.getElementById('sepet-sayi').innerText = sepet.length;
     
     btn.innerText = "EKLENDİ ✔";
@@ -355,14 +340,14 @@ function sepetiGoster() {
     let toplam = 0;
 
     if (sepet.length === 0) {
-        listeAlani.innerHTML = "<p style='color:#555;'>Sepetiniz şu an boş. MIRAE ışıltısını keşfedin.</p>";
+        listeAlani.innerHTML = "<p style='color:#555;'>Sepetiniz şu an boş.</p>";
     } else {
         sepet.forEach((item, index) => {
             toplam += item.fiyat;
             listeAlani.innerHTML += `
                 <div style="display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; padding: 15px; margin-bottom: 15px; border: 1px solid #111;">
                     <div style="display: flex; align-items: center; gap: 15px;">
-                        <img src="${item.resim}" style="width: 60px; height: 60px; object-fit: cover;">
+                        <img src="${item.resim}" style="width: 60px; height: 60px; object-fit: cover;" referrerpolicy="no-referrer">
                         <div>
                             <h4 style="font-size: 0.9rem;">${item.ad}</h4>
                             <small style="color: #d4a5b2;">${item.kategori}</small>
@@ -372,8 +357,7 @@ function sepetiGoster() {
                         <p style="font-weight: bold;">${item.fiyat} ₺</p>
                         <button onclick="sepettenCikar(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer; font-size:0.7rem; margin-top:5px;">[ Kaldır ]</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
     }
     toplamAlan.innerText = toplam;
@@ -388,8 +372,7 @@ function sepettenCikar(index) {
 function siparisTamamla(e) {
     e.preventDefault();
     if (sepet.length === 0) return alert("Sepetiniz boş!");
-    
-    alert("Ödemeniz onaylandı. MIRAE ışıltısı en kısa sürede kapınızda olacak! ✨");
+    alert("Ödemeniz onaylandı. ✨");
     sepet = [];
     document.getElementById('sepet-sayi').innerText = "0";
     sayfaDegistir('ana-sayfa');
@@ -398,20 +381,15 @@ function siparisTamamla(e) {
 function filtrele(linkText) {
     const temizMetin = linkText.trim();
     const hedefKategori = kategoriMap[temizMetin];
-
     let filtrelenmis;
 
     if (hedefKategori === "all") {
         filtrelenmis = urunListesi;
     } else if (hedefKategori) {
         filtrelenmis = urunListesi.filter(u => u.kategori === hedefKategori);
-    } else {
-        console.warn("Eşleşen kategori bulunamadı:", temizMetin);
-        return;
-    }
+    } else { return; }
 
     urunleriYukle(filtrelenmis, "urun-grid");
-
     document.querySelectorAll('.kategori-link').forEach(link => {
         link.style.color = link.innerText.trim() === temizMetin ? "#d4a5b2" : "#666";
     });
@@ -419,7 +397,6 @@ function filtrele(linkText) {
 
 function sayfaDegistir(id) {
     const sayfalar = document.querySelectorAll('.sayfa');
-    
     sayfalar.forEach(s => {
         s.classList.remove('aktif');
         s.style.display = "none";
@@ -430,20 +407,14 @@ function sayfaDegistir(id) {
     if (hedef) {
         hedef.style.display = "flex"; 
         hedef.classList.add('aktif');
-        
         if (id === 'favorites') favorileriGoster();
         if (id === 'urunler') urunleriYukle(urunListesi, "urun-grid");
         if (id === 'sepet-sayfasi') sepetiGoster();
-
         window.scrollTo({ top: 0, behavior: 'auto' });
-
-        setTimeout(() => {
-            hedef.style.opacity = "1";
-        }, 10);
+        setTimeout(() => { hedef.style.opacity = "1"; }, 10);
     }
 }
 
 window.onload = () => {
-    const urunGrid = document.getElementById("urun-grid");
-    if (urunGrid) urunleriYukle(urunListesi, "urun-grid");
+    urunleriYukle(urunListesi, "urun-grid");
 };
