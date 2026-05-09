@@ -268,10 +268,15 @@ function urunleriYukle(liste = urunListesi, hedefId = "urun-grid") {
         const btnClass = isFav ? "kart-btn aktif-fav" : "kart-btn";
         const btnText = isFav ? "♥ FAVORİDE" : "♡ FAVORİYE EKLE";
 
-        alan.innerHTML += `
+    alan.innerHTML += `
     <div class="kart">
         <div class="img-container">
-            <img src="${urun.resim}" alt="${urun.ad}" loading="lazy" decoding="async" crossorigin="anonymous" referrerpolicy="no-referrer"> 
+            <img src="${urun.resim}" 
+                 alt="${urun.ad}" 
+                 loading="lazy" 
+                 decoding="async" 
+                 referrerpolicy="no-referrer"
+                 onerror="this.onerror=null; this.src='https://picsum.photos/400/400?luxury,jewelry&sig=${Math.random()}';">
         </div>
         <div class="kart-bilgi">
             <small class="kat-label">${urun.kategori}</small>
@@ -286,7 +291,6 @@ function urunleriYukle(liste = urunListesi, hedefId = "urun-grid") {
             </div>
         </div>
     </div>`;
-    });
 }
 
 function favIslem(urunAdi) {
