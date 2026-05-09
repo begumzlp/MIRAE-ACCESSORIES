@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRAE | Glamour Accessories </title>
+    <link rel="icon" href="https://img.icons8.com/ios-filled/50/d4a5b2/diamond--v1.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo" onclick="sayfaDegistir('ana-sayfa')">M I R A E</a>
+        <ul class="nav-links">
+            <li><a onclick="sayfaDegistir('ana-sayfa')">Ana Sayfa</a></li>
+            <li><a onclick="sayfaDegistir('urunler')">Koleksiyon</a></li>
+            <li><a onclick="sayfaDegistir('sepet-sayfasi')">Sepet (<span id="sepet-sayi">0</span>)</a></li>
+            <li><a onclick="sayfaDegistir('favorites')">Favoriler</a></li>
+            <li><a onclick="sayfaDegistir('iletisim')">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <div id="ana-sayfa" class="sayfa aktif">
+        <div class="hero-content">
+            <h1 class="hero-pink" style="white-space: nowrap;">M I R A E</h1>
+            <p class="alt-baslik">GLAMOUR • LUXURY • ELEGANCE</p>
+            <a href="javascript:void(0)" onclick="sayfaDegistir('urunler')" class="hero-btn">Işıltıyı Keşfet</a>
+        </div>
+    </div>
+
+    <div id="urunler" class="sayfa">
+        <div class="urun-konteynir">
+            <aside class="sidebar">
+                <h3>Kategoriler</h3>
+                <div class="kategori-liste">
+                    <a href="#" class="kategori-link" onclick="filtrele('Tüm Parçalar')">Tüm Parçalar</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Küpeler')">Küpeler</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Kolyeler')">Kolyeler</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Bileklikler')">Bileklikler</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Yüzükler')">Yüzükler</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Şahmeranlar')">Şahmeranlar</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Halhallar')">Halhallar</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Gözlükler')">Gözlükler</a>
+                    <a href="#" class="kategori-link" onclick="filtrele('Fularlar')">Fularlar</a>
+                </div>
+            </aside>
+            <div class="urun-grid" id="urun-grid">
+                </div>
+        </div>
+    </div>
+
+    <div id="favorites" class="sayfa">
+        <div class="favori-baslik" style="text-align: center; margin-bottom: 30px;">
+            <h2 style="font-family: 'Playfair Display', serif; color: #d4a5b2; letter-spacing: 5px;">FAVORİLERİNİZ</h2>
+        </div>
+        <div class="urun-grid" id="favori-grid">
+            </div>
+    </div>
+
+    <div id="sepet-sayfasi" class="sayfa">
+    <div class="form-kutu sepet-konteynir">
+        <h3>Sepetim</h3>
+        <div id="sepet-listesi">
+            </div>
+        <div style="border-top: 1px solid #222; margin-top: 20px; padding-top: 20px; text-align: right;">
+            <p style="font-size: 1.2rem;">Toplam: <span id="toplam-tutar" style="color: #d4a5b2;">0</span> ₺</p>
+            <button class="gonder-btn" onclick="siparisTamamla(event)" style="margin-top: 20px;">SİPARİŞİ TAMAMLA</button>
+        </div>
+    </div>
+    </div>
+
+    <div id="iletisim" class="sayfa">
+        <div class="form-kutu">
+            <h3>İletişim Formu</h3>
+            <form id="contactForm" onsubmit="event.preventDefault(); alert('Mesajınız MIRAE ekibine ulaştı ✨');">
+                <input type="text" placeholder="Adınız Soyadınız" required>
+                <input type="email" placeholder="E-posta Adresiniz" required>
+                <textarea placeholder="Bize bir mesaj bırakın..." rows="5" required></textarea>
+                <button type="submit" class="gonder-btn">Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 M I R A E | GLAMOUR STUDIO</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
